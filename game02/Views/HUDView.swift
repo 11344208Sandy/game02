@@ -7,49 +7,66 @@ struct HUDView: View {
     let onHome: () -> Void
 
     var body: some View {
-        HStack(spacing: 12) {
-            HStack(spacing: 8) {
-                Image(systemName: "star.fill")
-
-                Text("\(score)")
-                    .contentTransition(.numericText())
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.82)
-                    .monospacedDigit()
+        HStack(spacing: 8) {
+            HStack(spacing: 12) {
+                scoreCapsule
+                highScoreCapsule
             }
-            .font(.system(size: 22, weight: .heavy, design: .rounded))
-            .foregroundStyle(.orange)
-            .frame(minWidth: 118, minHeight: 52)
-            .padding(.horizontal, 14)
-            .background(.white.opacity(0.9), in: Capsule())
 
-            Label("最高 \(highScore)", systemImage: "crown.fill")
-                .font(.system(size: 14, weight: .heavy, design: .rounded))
-                .foregroundStyle(.brown)
-                .lineLimit(1)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 9)
-                .background(.white.opacity(0.82), in: Capsule())
-
-            Text(character.emoji)
-                .font(.system(size: 26))
-                .frame(width: 52, height: 52)
-                .background(.white.opacity(0.82), in: Circle())
+            characterBadge
 
             Spacer()
 
             Button(action: onHome) {
                 Image(systemName: "house.fill")
-                    .font(.system(size: 16, weight: .bold))
-                    .frame(width: 40, height: 40)
+                    .font(.system(size: 15, weight: .bold))
+                    .frame(width: 38, height: 38)
                     .background(.white.opacity(0.88), in: Circle())
             }
             .buttonStyle(.plain)
             .foregroundStyle(.brown)
             .accessibilityLabel("回到角色選擇")
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 14)
+        .padding(.horizontal, 12)
+        .padding(.top, 12)
+    }
+
+    private var scoreCapsule: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "star.fill")
+
+            Text("\(score)")
+                .contentTransition(.numericText())
+                .lineLimit(1)
+                .minimumScaleFactor(0.82)
+                .monospacedDigit()
+        }
+        .font(.system(size: 19, weight: .heavy, design: .rounded))
+        .foregroundStyle(.orange)
+        .frame(width: 112, height: 44)
+        .background(.white.opacity(0.9), in: Capsule())
+    }
+
+    private var highScoreCapsule: some View {
+        HStack(spacing: 5) {
+            Image(systemName: "crown.fill")
+
+            Text("最高 \(highScore)")
+                .lineLimit(1)
+                .minimumScaleFactor(0.78)
+                .monospacedDigit()
+        }
+        .font(.system(size: 12, weight: .heavy, design: .rounded))
+        .foregroundStyle(.brown)
+        .frame(width: 98, height: 38)
+        .background(.white.opacity(0.82), in: Capsule())
+    }
+
+    private var characterBadge: some View {
+        Text(character.emoji)
+            .font(.system(size: 22))
+            .frame(width: 42, height: 42)
+            .background(.white.opacity(0.82), in: Circle())
     }
 }
 
